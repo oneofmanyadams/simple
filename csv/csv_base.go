@@ -34,7 +34,7 @@ func LoadFromFolder(folder_location string) [][]string {
 		// make sure we only read data from csv files
 		if extension == ".csv" {
 			// Load data
-			loaded_lines := FromFile(folder_location+"/"+data_file.Name())
+			loaded_lines := LoadFromFile(folder_location+"/"+data_file.Name())
 			lines = append(lines, loaded_lines...)
 		}
 	}
