@@ -1,4 +1,4 @@
-package csv
+package scsv
 
 import (
 	"fmt"
