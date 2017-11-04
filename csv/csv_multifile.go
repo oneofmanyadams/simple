@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func LoadFromFolder(folder_location string) lines [][]string {
+func LoadFromFolder(folder_location string) (lines [][]string) {
 	// Open folder
 	file_list, file_load_error := ioutil.ReadDir(folder_location)
 	if file_load_error != nil {

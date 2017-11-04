@@ -1,57 +1,53 @@
 package csv
 
 import (
+	"io"
 	"fmt"
+	"os"
+	"encoding/csv"
+	"bufio"
 )
 
-type CsvHandler struct {
-	DataLoc string
-	LocType string
-	Lines [][]string
-}
-
-
-//////////////////////////
-// Load Methods
-//////////////////////////
-
-func (csv *CsvHandler) Load() {
-	if csv.LocType == "file" {
-		csv.FileLoad()
-	} else if csv.LocType == "folder" {
-		csv.FolderLoad()
-	} else {
-		fmt.Println("Error loading, neither file or folder specified")	
+func LoadFromFile(file_location string) (lines [][]string) {
+	// Open file
+	file, file_error := os.Open(file_location)
+	if file_error != nil {
+		// For now just print errror
+		// Need to handle better in future
+		fmt.Println("Error opening file: ", file_error)
 	}
-}
+	defer file.Close()
 
-func (csv *CsvHandler) FileLoad() {
-	csv.Lines = LoadFromFile(csv.DataLoc)
-}
+	// Read file as CSV data
+	csv_data := csv.NewReader(bufio.NewReader(file))
 
-func (csv *CsvHandler) FolderLoad() {
-	csv.Lines = LoadFromFolder(csv.DataLoc)
-}
-
-//////////////////////////
-// Save Methods
-//////////////////////////
-
-func (csv *CsvHandler) Save() {
-	if csv.LocType == "file" {
-		csv.FileSave()
-	} else if csv.LocType == "folder" {
-		fmt.Println("Saving to multiple files not available yet")
-		//csv.FileSave()
-	} else {
-		fmt.Println("Error loading, neither file or folder specified")	
+	// load line by line
+	line_count := 0
+	for ; ; line_count++ {
+		line, err := csv_data.Read()
+		// breaks loop at end of file
+		if err == io.EOF {
+			break
+		}
+		lines = append(lines, line)
 	}
+	return
 }
 
-func (csv *CsvHandler) FileSave() {
-	SaveToFile(csv.Lines, csv.DataLoc)
+func SaveToFile(file_location string, lines [][]string) {	
+	// Create file
+	file, file_error := os.Create(file_location)
+	if file_error != nil {
+		// For now just print errror
+		// Need to handle better in future
+		fmt.Println("Error opening file: ", file_error)
+	}
+	defer file.Close()
+	
+	// Write lines
+	writer := csv.NewWriter(file)
+	for _, wrrt_line := range lines {
+		writer.Write(wrrt_line)
+	}
+	defer writer.Flush()
 }
-
-//////////////////////////
-// Save Methods
-//////////////////////////
