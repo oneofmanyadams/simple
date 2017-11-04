@@ -5,9 +5,6 @@ import (
 	"os"
 	"fmt"
 	"strings"
-/*
-	"strconv"
-*/
 )
 
 func PromptUser(question string) (answer string) {
