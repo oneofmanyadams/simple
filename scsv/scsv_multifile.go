@@ -23,3 +23,9 @@ func LoadFromFolder(folder_location string) (lines [][]string) {
 	}
 	return
 }
+
+func SaveToFolder(folder_location string, sections map[string][][]string) {
+	for section_name, section_lines := range sections {
+		SaveToFile(folder_location+"/"+section_name+".csv", section_lines)
+	}
+}

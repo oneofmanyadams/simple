@@ -40,8 +40,10 @@ func (csv *CsvHandler) Save() {
 	if csv.StorageType == "file" {
 		csv.FileSave()
 	} else if csv.StorageType == "folder" {
-		fmt.Println("Saving to multiple files not available yet")
-		//csv.FileSave()
+		fmt.Println("!!!!")
+		fmt.Println("!!Saving to multiple files disabled for Handler!!")
+		fmt.Println("!!!!")
+		//csv.FolderSave()
 	} else {
 		fmt.Println("Error loading, neither file or folder specified")	
 	}
@@ -49,4 +51,8 @@ func (csv *CsvHandler) Save() {
 
 func (csv *CsvHandler) FileSave() {
 	SaveToFile(csv.DataLocation, csv.Lines)
+}
+
+func (csv *CsvHandler) FolderSave() {
+// 	SaveToFolder(csv.DataLocation, csv.Lines)
 }
