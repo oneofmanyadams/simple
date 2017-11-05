@@ -55,7 +55,7 @@ func (sconf *Sconf) InfoFor(setting string) (value string, flag string) {
 
 func (sconf *Sconf) ChangeInfoFor(setting string, value string, flag string) {
 	sconf.ChangeSettingValue(setting, value)
-	sconf.ChangeSettingValue(setting, flag)
+	sconf.ChangeFlagValue(setting, flag)
 }
 
 ////////////////////////////////
