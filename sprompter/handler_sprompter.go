@@ -14,6 +14,8 @@ func NewPrompt(question string) (new_prompt Prompt) {
 }
 
 func (prompt *Prompt) AddOption(key int, option string) {
+	// Should build in way to check that options are being added correctly
+	// 	-As in, no 0 key and no skipped numbers for key
 	prompt.Options[key] = option
 }
 
@@ -25,6 +27,5 @@ func (prompt *Prompt) GetInput() {
 		}
 	} else {
 		prompt.Result = PromptUser(prompt.Question)
-		
 	}
 }
