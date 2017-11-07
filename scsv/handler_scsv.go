@@ -11,6 +11,17 @@ type CsvHandler struct {
 }
 
 //////////////////////////
+// General Methods
+//////////////////////////
+
+func NewCsvHandler(data_location string, storage_type string) (csv_handler CsvHandler) {
+	csv_handler.DataLocation = data_location
+	csv_handler.StorageType = storage_type
+	return
+}
+
+
+//////////////////////////
 // Load Methods
 //////////////////////////
 

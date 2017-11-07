@@ -14,8 +14,11 @@ func LoadConfigFromFileWithFlags(file_location string) (settings map[string]stri
 		if len(config_record) == 3 {
 			settings[config_record[0]] = config_record[1]
 			flags[config_record[0]] = config_record[2]
+		} else if len(config_record) == 2 {
+			settings[config_record[0]] = config_record[1]
+			flags[config_record[0]] = ""
 		} else {
-			fmt.Println("configuration record does not have flag")
+			fmt.Println("configuration record not in proper format")
 		}
 	}
 	return
@@ -33,6 +36,8 @@ func SaveConfigToFileWithFlags(file_location string, settings map[string]string,
 		}
 		
 		scsv.SaveToFile(file_location, configuration_records)
+	} else {
+		fmt.Println("Unable to save configuration. Flag and setting formats do not match.")
 	}
 }
 
