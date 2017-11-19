@@ -14,8 +14,12 @@ func PromptUserWithOptions(question string, options map[int]string) (selected_op
 	// build prompt string
 	var prompt_string string	
 	prompt_string = question+"\n"
-	for i := 1; i <= len(options); i++ {
-		prompt_string = prompt_string + "	"+strconv.Itoa(i)+": "+options[i]+"\n"
+	var real_key int
+	for i := 1; real_key < len(options); i++ {
+		if _, exists := options[i]; exists {
+			prompt_string = prompt_string + "	"+strconv.Itoa(i)+": "+options[i]+"\n"
+			real_key = real_key + 1
+		}		
 	}
 	
 	// prompt user for input
